@@ -1,0 +1,153 @@
+<form>
+  <div id="ccc-wizard-container">
+    <div class="ccc-steps">
+      <header class="ccc-step-header">
+        <h2>Cosmere Character Creator</h2>
+        <div class="step-indicator">Step 0 / 7</div>
+      </header>
+
+      <!-- Step 0: Name -->
+      <section class="wizard-step" data-step="0">
+        <h3>0 — Character Name</h3>
+        <label>Name: <input type="text" name="character-name" class="ccc-input" value="{{prefill.name}}"></label>
+      </section>
+
+      <!-- Step 1: Ancestry -->
+      <section class="wizard-step" data-step="1" style="display:none;">
+        <h3>1 — Ancestry</h3>
+        <label>
+          Ancestry:
+          <select name="ancestry" class="ccc-select">
+            <option value="">— None —</option>
+            {{#each ancestries}}
+              <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+          </select>
+        </label>
+      </section>
+
+      <!-- Step 2: Cultures -->
+      <section class="wizard-step" data-step="2" style="display:none;">
+        <h3>2 — Culture (choose up to 2)</h3>
+        <div class="ccc-multi">
+          {{#each cultures}}
+            <label><input type="checkbox" name="culture" value="{{_id}}"> {{name}}</label><br/>
+          {{/each}}
+          {{#unless cultures.length}}
+            <div class="ccc-note">No cultures compendium selected or compendium empty.</div>
+          {{/unless}}
+        </div>
+      </section>
+
+      <!-- Step 3: Heroic Path -->
+      <section class="wizard-step" data-step="3" style="display:none;">
+        <h3>3 — Heroic Path</h3>
+        <label>
+          Heroic Path:
+          <select name="heroicPath" class="ccc-select">
+            <option value="">— None —</option>
+            {{#each heroicPaths}}
+              <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+          </select>
+        </label>
+      </section>
+
+      <!-- Step 4: Radiant Path -->
+      <section class="wizard-step" data-step="4" style="display:none;">
+        <h3>4 — Radiant Path</h3>
+        <label>
+          Radiant Path:
+          <select name="radiantPath" class="ccc-select">
+            <option value="">— None —</option>
+            {{#each radiantPaths}}
+              <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+          </select>
+        </label>
+      </section>
+
+      <!-- Step 5: Attributes -->
+      <section class="wizard-step" data-step="5" style="display:none;">
+        <h3>5 — Attributes (allocate points)</h3>
+        <p>Points remaining: <span id="attr-points-remaining">12</span></p>
+        <div class="attributes">
+          {{#each attributes}}
+            <label>{{this}}:
+              <input type="number" name="attr-{{this}}" min="0" max="3" value="{{lookup ../prefill.attributes (lowercase this)}}" />
+            </label>
+            <div class="attr-preview">Preview: <span id="preview-attr-{{this}}">0</span></div>
+            <br/>
+          {{/each}}
+        </div>
+      </section>
+
+      <!-- Step 6: Skills & Expertise -->
+      <section class="wizard-step" data-step="6" style="display:none;">
+        <h3>6 — Skills & Expertise</h3>
+        <p>Skill points remaining: <span id="skills-points-remaining">4</span></p>
+        <div class="skills-list">
+          {{#each skills}}
+            <div class="ccc-skill-row">
+              <label>{{name}}:
+                <input class="skill-input" data-skill="{{name}}" type="number" min="0" max="2" value="{{lookup ../prefill.skillValues name}}">
+              </label>
+            </div>
+          {{/each}}
+        </div>
+        <h4>Expertise (based on Intellect)</h4>
+        <div class="expertise-container"></div>
+      </section>
+
+      <!-- Step 7: Items -->
+      <section class="wizard-step" data-step="7" style="display:none;">
+        <h3>7 — Items</h3>
+        <label>Choose items to add (multi-select):
+          <select name="items" multiple size="6" style="width:100%;">
+            {{#each basicItems}}
+              <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+          </select>
+        </label>
+        <div class="ccc-note">Items will be copied from the selected compendium into the actor.</div>
+      </section>
+
+      <nav class="ccc-nav">
+        <button type="button" class="prev-step">Previous</button>
+        <div class="nav-right">
+          <button type="button" class="next-step">Next</button>
+          <button type="submit" class="finish">Finish</button>
+        </div>
+      </nav>
+    </div>
+
+    <aside class="ccc-preview">
+      <h4>Preview</h4>
+      <div><strong id="preview-name">New Cosmere Hero</strong></div>
+      <div>Ancestry: <span id="preview-ancestry">—</span></div>
+      <div>Culture: <span id="preview-culture">—</span></div>
+      <div>Heroic Path: <span id="preview-heroicPath">—</span></div>
+      <div>Radiant Path: <span id="preview-radiantPath">—</span></div>
+      <hr/>
+      <div id="ccc-preview-attributes">
+        <h5>Attributes</h5>
+        {{#each attributes}}
+          <div class="attr-line">{{this}}: <span id="preview-attr-{{this}}">0</span></div>
+        {{/each}}
+      </div>
+      <hr/>
+      <div>
+        <h5>Skills</h5>
+        <ul id="preview-skills-list"></ul>
+      </div>
+      <div>
+        <h5>Expertises</h5>
+        <ul id="preview-expertise-list"></ul>
+      </div>
+      <div>
+        <h5>Items</h5>
+        <div id="preview-items"></div>
+      </div>
+    </aside>
+  </div>
+</form>
