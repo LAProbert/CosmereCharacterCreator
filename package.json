@@ -1,6 +1,6 @@
 {
-    "name": "cosmere-automated-actions",
-    "version": "1.1.1",
+    "name": "cosmere-character-builder",
+    "version": "1.0.0",
     "private": true,
     "type": "module",
     "scripts": {
