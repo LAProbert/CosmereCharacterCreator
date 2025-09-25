@@ -6,42 +6,8 @@
 Hooks.once("init", () => {
   console.log(`${MODULE_ID} | Initializing`);
 
-  Handlebars.registerHelper("lowercase", s => (s || "").toLowerCase());
-  Handlebars.registerHelper("ifEquals", (a, b, opts) => (a == b) ? opts.fn(this) : opts.inverse(this));
-  Handlebars.registerHelper("ifContains", (value, array, opts) => (Array.isArray(array) && array.includes(value)) ? opts.fn(this) : opts.inverse(this));
-  Handlebars.registerHelper("eq", (a, b) => a === b);
-
-  // Minimal settings (created with config: false; FormApplication menu handles UI)
-  const settingKeys = [
-    "ancestriesCompendium",
-    "culturesCompendium",
-    "heroicPathsCompendium",
-    "radiantPathsCompendium",
-    "itemsCompendium",
-    "skillsCompendium",
-    "expertiseCompendium",
-    "skillItemType",
-    "expertiseItemType"
-  ];
-  for (const key of settingKeys) {
-    if (!game.settings.settings.has(`${MODULE_ID}.${key}`)) {
-      game.settings.register(MODULE_ID, key, {
-        name: key,
-        scope: "world",
-        config: false,
-        type: String,
-        default: ""
-      });
-    }
-  }
-
-  game.settings.registerMenu(MODULE_ID, "compendiums", {
-    name: "Cosmere Compendiums",
-    label: "Configure Cosmere Compendiums",
-    icon: "fas fa-book",
-    type: CosmereSettingsForm,
-    restricted: true
-  });
+	registerHandlebars();
+	registerSettings();
 });
 
 Hooks.once("ready", async () => {
