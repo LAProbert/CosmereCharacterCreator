@@ -3,27 +3,6 @@
   Cosmere Character Creator - main.js (updated)
   Foundry VTT v12 — attribute merge, item deduplication, creation flags
 */
-const MODULE_ID = "cosmere-character-creator";
-const TEMPLATE_PATHS = {
-  WIZARD: `modules/${MODULE_ID}/templates/wizard.html`,
-  SETTINGS: `modules/${MODULE_ID}/templates/settings.html`
-};
-
-const ATTRIBUTE_MAP = {
-  Strength: "str",
-  Speed: "spd",
-  Intellect: "int",
-  Willpower: "wil",
-  Awareness: "awa",
-  Presence: "pre"
-};
-
-const DEFAULT_SKILLS = [
-  "Agility","Athletics","Heavy Weaponry","Light Weaponry","Stealth","Thievery","Crafting",
-  "Deduction","Discipline","Intimidation","Lore","Medicine","Deception","Insight","Leadership",
-  "Perception","Persuasion","Survival"
-];
-
 Hooks.once("init", () => {
   console.log(`${MODULE_ID} | Initializing`);
 
@@ -66,14 +45,14 @@ Hooks.once("init", () => {
 });
 
 Hooks.once("ready", async () => {
-  const requiredSystemId = "cosmere-rpg";
-  if (game.system?.id !== requiredSystemId) {
-    if (game.user?.isGM) {
-      ui.notifications.warn(`${MODULE_ID}: Designed for "${requiredSystemId}". Active system is "${game.system?.id ?? "none"}".`);
-    } else {
-      console.warn(`${MODULE_ID}: Expected system "${requiredSystemId}", found "${game.system?.id ?? "none"}".`);
-    }
-  }
+	// Note from Khu: this can be handled in module.json's relationships object
+	if (game.system?.id !== SYSTEM_ID) {
+		if (game.user?.isGM) {
+			ui.notifications.warn(`${MODULE_ID}: Designed for "${SYSTEM_ID}". Active system is "${game.system?.id ?? "none"}".`);
+		} else {
+			console.warn(`${MODULE_ID}: Expected system "${SYSTEM_ID}", found "${game.system?.id ?? "none"}".`);
+		}
+	}
 
 Hooks.on("getSceneControlButtons", controls => {
   const tokenControls = controls.find(c => c.name === "token");
