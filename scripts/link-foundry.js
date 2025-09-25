@@ -52,7 +52,7 @@ const { dataPath } = await prompts({
 });
 
 // Construct path to symlink
-const symlinkPath = path.resolve(dataPath, 'modules', 'cosmere-automated-actions');
+const symlinkPath = path.resolve(dataPath, 'modules', 'cosmere-character-creator');
 
 const stats = fs.statSync(symlinkPath, { throwIfNoEntry: false });
 if (stats) {
