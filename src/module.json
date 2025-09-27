@@ -30,5 +30,29 @@
       "name": "English",
       "path": "lang/en.json"
     }
-  ]
+  ],
+  "relationships": {
+		"recommends": [
+			{
+				"id": "cosmere-rpg-stormlight-handbook",
+				"type": "module",
+				"compatibility": {}
+			},
+			{
+				"id": "cosmere-rpg-stormlight-worldguide",
+				"type": "module",
+				"compatibility": {}
+			}
+		],
+		"systems": [
+			{
+				"id": "cosmere-rpg",
+				"type": "system",
+				"compatibility": {
+					"minimum": "1",
+					"verified": "1"
+				}
+			}
+		]
+	}
 }

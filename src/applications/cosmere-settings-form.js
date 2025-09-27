@@ -1,3 +1,5 @@
+import { TEMPLATE_PATHS,MODULE_ID } from "../utils/constants";
+
 export class CosmereSettingsForm extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
