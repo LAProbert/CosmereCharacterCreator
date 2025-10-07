@@ -1,5 +1,5 @@
 import { CosmereSettingsForm } from "../applications/cosmere-settings-form";
-import { settingKeys } from "./constants";
+import { settingKeys, MODULE_ID } from "./constants";
 
 export function registerSettings() {
 	for (const key of settingKeys) {
